@@ -1,10 +1,15 @@
 {
     "name": "vmorozov/event-backbone-laravel",
-    "description": "Package for convenient usage of Event Driven Microservices communication using Event Backbone (Apache Kafka).",
+    "description": "Laravel package for convenient usage of Event Driven Microservices communication using Event Backbone (Apache Kafka).",
     "keywords": [
         "vmorozov",
         "laravel",
-        "event-backbone-laravel"
+        "event-backbone-laravel",
+        "microservices",
+        "apache-kafka",
+        "kafka",
+        "event-driven-architecture",
+        "events"
     ],
     "homepage": "https://github.com/vmorozov/event-backbone-laravel",
     "license": "MIT",
