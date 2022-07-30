@@ -1,7 +1,8 @@
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
+[//]: # ([<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />]&#40;https://supportukrainenow.org&#41;)
 
-# Package for convenient usage of Event Driven Microservices communication using Event Backbone (Apache Kafka).
+# Event Backbone Laravel
+## Package for convenient usage of Event Driven Microservices communication using Event Backbone (Apache Kafka).
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vmorozov/event-backbone-laravel.svg?style=flat-square)](https://packagist.org/packages/vmorozov/event-backbone-laravel)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/vmorozov/event-backbone-laravel/run-tests?label=tests)](https://github.com/vmorozov/event-backbone-laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -10,13 +11,16 @@
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-## Support us
+[//]: # (## Support us)
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/event_backbone_laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/event_backbone_laravel)
+[//]: # ()
+[//]: # ([<img src="https://github-ads.s3.eu-central-1.amazonaws.com/event_backbone_laravel.jpg?t=1" width="419px" />]&#40;https://spatie.be/github-ad-click/event_backbone_laravel&#41;)
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+[//]: # ()
+[//]: # (We invest a lot of resources into creating [best in class open source packages]&#40;https://spatie.be/open-source&#41;. You can support us by [buying one of our paid products]&#40;https://spatie.be/open-source/support-us&#41;.)
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+[//]: # ()
+[//]: # (We highly appreciate you sending us a postcard from your hometown, mentioning which of our package&#40;s&#41; you are using. You'll find our address on [our contact page]&#40;https://spatie.be/about-us&#41;. We publish all received postcards on [our virtual postcard wall]&#40;https://spatie.be/open-source/postcards&#41;.)
 
 ## Installation
 
@@ -26,30 +30,10 @@ You can install the package via composer:
 composer require vmorozov/event-backbone-laravel
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="event-backbone-laravel-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="event-backbone-laravel-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="event-backbone-laravel-views"
 ```
 
 ## Usage
