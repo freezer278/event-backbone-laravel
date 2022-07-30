@@ -9,6 +9,12 @@ use RdKafka\TopicConf;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vmorozov\EventBackboneLaravel\Commands\ConsumeExternalEventsCommand;
+use Vmorozov\EventBackboneLaravel\Consumer\ConsumedExternalEventsMap;
+use Vmorozov\EventBackboneLaravel\Consumer\EventBackboneConsumer;
+use Vmorozov\EventBackboneLaravel\Consumer\KafkaEventBackboneConsumer;
+use Vmorozov\EventBackboneLaravel\Producer\EventBackboneProducer;
+use Vmorozov\EventBackboneLaravel\Producer\ExternalEventsProducingSubscriber;
+use Vmorozov\EventBackboneLaravel\Producer\KafkaEventBackboneProducer;
 
 class EventBackboneLaravelServiceProvider extends PackageServiceProvider
 {

@@ -3,7 +3,7 @@
 namespace Vmorozov\EventBackboneLaravel\Commands;
 
 use Illuminate\Console\Command;
-use Vmorozov\EventBackboneLaravel\EventBackboneConsumer;
+use Vmorozov\EventBackboneLaravel\Consumer\EventBackboneConsumer;
 
 class ConsumeExternalEventsCommand extends Command
 {

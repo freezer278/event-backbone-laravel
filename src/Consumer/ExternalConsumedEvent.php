@@ -1,6 +1,6 @@
 <?php
 
-namespace Vmorozov\EventBackboneLaravel;
+namespace Vmorozov\EventBackboneLaravel\Consumer;
 
 interface ExternalConsumedEvent
 {

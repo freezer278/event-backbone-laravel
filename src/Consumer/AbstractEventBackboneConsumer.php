@@ -1,10 +1,6 @@
 <?php
 
-namespace Vmorozov\EventBackboneLaravel;
-
-use Exception;
-use RdKafka\KafkaConsumer;
-use RdKafka\Message;
+namespace Vmorozov\EventBackboneLaravel\Consumer;
 
 abstract class AbstractEventBackboneConsumer implements EventBackboneConsumer
 {

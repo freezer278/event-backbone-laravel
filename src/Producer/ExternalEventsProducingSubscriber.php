@@ -1,16 +1,16 @@
 <?php
 
-namespace Vmorozov\EventBackboneLaravel;
+namespace Vmorozov\EventBackboneLaravel\Producer;
 
 use Illuminate\Events\Dispatcher;
 
 class ExternalEventsProducingSubscriber
 {
-    private EventBackboneProducer $eventBackbonePublisher;
+    private EventBackboneProducer $eventBackboneProducer;
 
     public function __construct(EventBackboneProducer $eventBackbonePublisher)
     {
-        $this->eventBackbonePublisher = $eventBackbonePublisher;
+        $this->eventBackboneProducer = $eventBackbonePublisher;
     }
 
     /**
@@ -29,6 +29,6 @@ class ExternalEventsProducingSubscriber
 
     public function publishExternalEvent(ExternalEvent $event): void
     {
-        $this->eventBackbonePublisher->produce($event);
+        $this->eventBackboneProducer->produce($event);
     }
 }
