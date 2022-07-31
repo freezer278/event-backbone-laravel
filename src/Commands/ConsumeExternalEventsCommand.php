@@ -12,7 +12,7 @@ class ConsumeExternalEventsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'external_events:consume';
+    protected $signature = 'event_backbone:consume';
 
     /**
      * The console command description.
