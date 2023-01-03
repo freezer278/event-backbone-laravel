@@ -10,7 +10,7 @@ interface ExternalEvent
 
     public function getKey(): string;
 
-    public function getPayload();
+    public function getPayload(): array;
 
     public function getHeaders(): array;
 }

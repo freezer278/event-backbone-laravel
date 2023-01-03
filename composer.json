@@ -5,6 +5,8 @@
         "vmorozov",
         "laravel",
         "event-backbone-laravel",
+        "event-bus-laravel",
+        "event-bus",
         "microservices",
         "apache-kafka",
         "kafka",

@@ -48,7 +48,9 @@ class KafkaEventBackboneConsumer extends AbstractEventBackboneConsumer
 
         try {
             $decodedMessage = json_decode($message->payload, true);
-            $data = json_decode($decodedMessage['body']['data'], true);
+            $data = !is_array($decodedMessage['body']['data'])
+                ? json_decode($decodedMessage['body']['data'], true)
+                : $decodedMessage['body']['data'];
             $name = $decodedMessage['body']['name'];
         } catch (ErrorException $exception) {
             Log::debug('Error in Kafka consumer [serialized]: ' . serialize($message));
