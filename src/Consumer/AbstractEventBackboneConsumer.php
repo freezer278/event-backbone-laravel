@@ -2,13 +2,17 @@
 
 namespace Vmorozov\EventBackboneLaravel\Consumer;
 
+use Vmorozov\EventBackboneLaravel\Consumer\Context\ConsumedEventContextApplier;
+
 abstract class AbstractEventBackboneConsumer implements EventBackboneConsumer
 {
     protected ConsumedExternalEventsMap $eventsMap;
+    private ConsumedEventContextApplier $contextApplier;
 
-    public function __construct(ConsumedExternalEventsMap $eventsMap)
+    public function __construct(ConsumedExternalEventsMap $eventsMap, ConsumedEventContextApplier $contextApplier)
     {
         $this->eventsMap = $eventsMap;
+        $this->contextApplier = $contextApplier;
     }
 
     public function consume(): void
@@ -40,5 +44,10 @@ abstract class AbstractEventBackboneConsumer implements EventBackboneConsumer
     protected function afterMessageProcessed($message): void
     {
 
+    }
+
+    protected function applyContext(array $context): void
+    {
+        $this->contextApplier->apply($context);
     }
 }

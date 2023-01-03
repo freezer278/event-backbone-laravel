@@ -4,14 +4,17 @@ namespace Vmorozov\EventBackboneLaravel\Producer;
 
 use Exception;
 use RdKafka\Producer;
+use Vmorozov\EventBackboneLaravel\Producer\Context\ProducedEventContextProvider;
 
 class KafkaEventBackboneProducer implements EventBackboneProducer
 {
     private Producer $producer;
+    private ProducedEventContextProvider $contextProvider;
 
-    public function __construct(Producer $producer)
+    public function __construct(Producer $producer, ProducedEventContextProvider $contextProvider)
     {
         $this->producer = $producer;
+        $this->contextProvider = $contextProvider;
     }
 
     public function produce(ExternalEvent $event): void
@@ -64,6 +67,7 @@ class KafkaEventBackboneProducer implements EventBackboneProducer
             'body' => [
                 'name' => $event->getName(),
                 'data' => $event->getPayload(),
+                'context' => $this->contextProvider->getContext(),
             ],
             'headers' => $event->getHeaders(),
         ]);

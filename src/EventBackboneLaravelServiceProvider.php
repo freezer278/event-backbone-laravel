@@ -10,8 +10,12 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Vmorozov\EventBackboneLaravel\Commands\ConsumeExternalEventsCommand;
 use Vmorozov\EventBackboneLaravel\Consumer\ConsumedExternalEventsMap;
+use Vmorozov\EventBackboneLaravel\Consumer\Context\ConsumedEventContextApplier;
+use Vmorozov\EventBackboneLaravel\Consumer\Context\VoidApplier;
 use Vmorozov\EventBackboneLaravel\Consumer\EventBackboneConsumer;
 use Vmorozov\EventBackboneLaravel\Consumer\KafkaEventBackboneConsumer;
+use Vmorozov\EventBackboneLaravel\Producer\Context\DefaultProvider;
+use Vmorozov\EventBackboneLaravel\Producer\Context\ProducedEventContextProvider;
 use Vmorozov\EventBackboneLaravel\Producer\EventBackboneProducer;
 use Vmorozov\EventBackboneLaravel\Producer\ExternalEventsProducingSubscriber;
 use Vmorozov\EventBackboneLaravel\Producer\KafkaEventBackboneProducer;
@@ -28,6 +32,8 @@ class EventBackboneLaravelServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
+        $this->setupContext();
+
         $this->app->instance(
             ConsumedExternalEventsMap::class,
             new ConsumedExternalEventsMap(config('event-backbone-laravel.consumed_event_names_map'))
@@ -65,5 +71,18 @@ class EventBackboneLaravelServiceProvider extends PackageServiceProvider
         $this->app->bind(Producer::class, function () use ($conf) {
             return new Producer($conf);
         });
+    }
+
+    private function setupContext(): void
+    {
+        $this->app->bind(
+            ProducedEventContextProvider::class,
+            config('event-backbone-laravel.context.provider_class', DefaultProvider::class)
+        );
+
+        $this->app->bind(
+            ConsumedEventContextApplier::class,
+            config('event-backbone-laravel.context.applier_class', VoidApplier::class)
+        );
     }
 }

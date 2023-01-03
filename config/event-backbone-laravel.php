@@ -13,7 +13,7 @@ return [
      * 'users', 'posts'
      */
     'topics_to_subscribe' => [
-
+        'example_topic',
     ],
     /**
      * Map consumed events from event backbone to Event classes in your project. Name => EventClass.
@@ -32,5 +32,9 @@ return [
             'consumer_group_id' => env('KAFKA_CONSUMER_GROUP_ID', env('APP_NAME', 'laravel')),
             'debug' => env('KAFKA_DEBUG', false),
         ],
+    ],
+    'context' => [
+        'provider_class' => \Vmorozov\EventBackboneLaravel\Producer\Context\DefaultProvider::class,
+        'applier_class' => \Vmorozov\EventBackboneLaravel\Consumer\Context\VoidApplier::class,
     ],
 ];

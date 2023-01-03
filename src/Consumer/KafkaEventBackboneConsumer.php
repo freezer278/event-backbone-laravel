@@ -7,14 +7,19 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use RdKafka\KafkaConsumer;
 use RdKafka\Message;
+use Vmorozov\EventBackboneLaravel\Consumer\Context\ConsumedEventContextApplier;
 
 class KafkaEventBackboneConsumer extends AbstractEventBackboneConsumer
 {
     private KafkaConsumer $consumer;
 
-    public function __construct(KafkaConsumer $consumer, ConsumedExternalEventsMap $eventsMap)
+    public function __construct(
+        ConsumedExternalEventsMap   $eventsMap,
+        ConsumedEventContextApplier $contextApplier,
+        KafkaConsumer               $consumer
+    )
     {
-        parent::__construct($eventsMap);
+        parent::__construct($eventsMap, $contextApplier);
         $this->consumer = $consumer;
         $consumer->subscribe(config('event-backbone-laravel.topics_to_subscribe'));
     }
@@ -52,10 +57,13 @@ class KafkaEventBackboneConsumer extends AbstractEventBackboneConsumer
                 ? json_decode($decodedMessage['body']['data'], true)
                 : $decodedMessage['body']['data'];
             $name = $decodedMessage['body']['name'];
+            $context = $decodedMessage['body']['context'] ?? [];
+            $this->applyContext($context);
         } catch (ErrorException $exception) {
-            Log::debug('Error in Kafka consumer [serialized]: ' . serialize($message));
-            Log::debug('Error in Kafka consumer [payload]: ' . $message->payload);
-            Log::debug(PHP_EOL.PHP_EOL.PHP_EOL);
+            Log::debug('Error in Kafka consumer [serialized]: ' . serialize($message), [
+                'serialized' => serialize($message),
+                'payload' => $message->payload,
+            ]);
             throw new Exception($exception->getMessage());
         }
 

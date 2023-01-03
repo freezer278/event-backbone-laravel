@@ -191,6 +191,69 @@ To start consuming events run following artisan command:
 php artisan event_backbone:consume
 ```
 
+## Configuration
+### Context feature 
+Events can contain additional context to enable switching app state on receiving events. 
+To Enable this feature you have to add two classes somewhere in your application: ContextProvider and Context applier and register them in config.
+1. Create applier class:
+```php
+<?php
+
+namespace App\Utils\EventBackbone;
+
+use Vmorozov\EventBackboneLaravel\Producer\Context\ProducedEventContextProvider;
+use Vmorozov\LaravelFluentdLogger\Tracing\TraceStorage;
+
+class ContextProvider implements ProducedEventContextProvider
+{
+    private TraceStorage $traceStorage;
+
+    public function __construct(TraceStorage $traceStorage)
+    {
+        $this->traceStorage = $traceStorage;
+    }
+
+    public function getContext(): array
+    {
+        return [
+            'trace_id' => $this->traceStorage->getTraceId(),
+        ];
+    }
+}
+```
+2. Create context applier class:
+```php
+<?php
+
+namespace App\Utils\EventBackbone;
+
+use Vmorozov\EventBackboneLaravel\Consumer\Context\ConsumedEventContextApplier;
+use Vmorozov\LaravelFluentdLogger\Tracing\TraceStorage;
+
+class ContextApplier implements ConsumedEventContextApplier
+{
+    private TraceStorage $traceStorage;
+
+    public function __construct(TraceStorage $traceStorage)
+    {
+        $this->traceStorage = $traceStorage;
+    }
+
+    public function apply(array $context): void
+    {
+        $this->traceStorage->setTraceId($context['trace_id']);
+    }
+}
+
+```
+3. Register created classes in `event-backbone-laravel.php` config:
+```php
+'context' => [
+    'provider_class' => \App\Utils\EventBackbone\ContextProvider::class,
+    'applier_class' => \App\Utils\EventBackbone\ContextApplier::class,
+],
+```
+
 ## Testing
 
 ```bash
